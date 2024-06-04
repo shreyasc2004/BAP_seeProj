@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Rental</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+        form {
+            text-align: center;
+        }
+        select, input[type="submit"] {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        select:focus, input[type="submit"]:focus {
+            outline: none;
+            border: 1px solid #007BFF;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        p.error {
+            text-align: center;
+            color: red;
+        }
+        p.success {
+            text-align: center;
+            color: green;
+        }
+        p.stock {
+            text-align: center;
+            color: #007BFF;
+        }
+        p.bill {
+            text-align: center;
+            color: #007BFF;
+        }
+        p.message {
+            text-align: center;
+            color: #007BFF;
+        }
+        .image {
+            display: inline-block; /* Change display property */
+            margin: 0 10px; /* Added some margin on the sides */
+            max-width: 30%; /* Increased max-width for larger images */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .image-container {
+            text-align: center; /* Center align the images */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>SCOOTEAZE your way!</h2>
+        <form method="post" action="/process_form">
+            <label for="choice">Choose an option:</label>
+            <br>
+            <select name="choice" id="choice">
+                <option value="1">Display available bikes</option>
+                <option value="2">Rent bike on hourly basis</option>
+                <option value="3">Rent bike on daily basis</option>
+                <option value="4">Rent bike on weekly basis</option>
+                <option value="5">Return bike</option>
+                <option value="6">Logout</option>
+            </select>
+            <br>
+            <label for="scooter_id">Select a scooter:</label>
+            <br>
+            <select name="scooter_id" id="scooter_id">
+                {% for scooter in scooters %}
+                <option value="{{ scooter.id }}">{{ scooter.name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if stock %}
+        <p class="stock">Available bikes: {{ stock }}</p>
+        {% endif %}
+
+        {% if bill %}
+        <p class="bill">Total bill: {{ bill }}</p>
+        {% endif %}
+
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+        <div class="image-container">
+            <img class="image" src="https://bd.gaadicdn.com/processedimages/heroelectric/heroelectric-optima/494X300/heroelectric-optima60f512a4cd47f.jpg?imwidth=400&impolicy=resize" alt="Electric vehicle">
+            <img class="image" src="https://imgd.aeplcdn.com/664x374/bw/ec/33679/Honda-Activa-5G-Front-threequarter-123687.jpg?wm=0&q=80" alt="125cc">
+            <img class="image" src="https://images.91wheels.com/assets/b_images/main/models/profile/profile1661764886.jpg" alt="110cc">
+        </div>
+    </div>
+</body>
+</html>
